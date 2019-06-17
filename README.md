@@ -1,0 +1,2 @@
+# Icaro
+Compression/decompression algorithms.
