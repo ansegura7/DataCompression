@@ -2,14 +2,14 @@
 Symbols distribution of files. Data compression/decompression algorithms.
 
 ## Example
-<details open>
-<summary>1. <a href="https://ansegura7.github.io/NLP/pages/NLP_SpaCy.html" >Symbols Distribution</a></summary>
+<details>
+<summary>1. <a href="https://ansegura7.github.io/DataCompression/pages/SymbolsDistribution.html" >Symbols Distribution</a></summary>
 <ul>
 	<li>Bytes Distribution</li>
 </ul>
 </details>
 <details>
-<summary>2. <a href="https://ansegura7.github.io/NLP/pages/NLP_SemanticEnrich.html" >File Compression</a></summary>
+<summary>2. <a href="https://ansegura7.github.io/DataCompression/pages/HuffmanCode.html" >File Compression</a></summary>
 <ul>
 	<li>Huffman Code from Scratch</li>
 	<li>Compress Image with Huffman Code</li>
