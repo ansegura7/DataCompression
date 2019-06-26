@@ -13407,7 +13407,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Complex-Example">Complex Example<a class="anchor-link" href="#Complex-Example">&#182;</a></h3>
+<h2 id="2.-Compress-Image-with-Huffman-Code">2. Compress Image with Huffman Code<a class="anchor-link" href="#2.-Compress-Image-with-Huffman-Code">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13417,7 +13417,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read file in low level (Bytes)</span>
-<span class="k">def</span> <span class="nf">get_image_bytes</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_file_bytes</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">());</span>
     <span class="k">return</span> <span class="kc">None</span><span class="p">;</span>
@@ -13433,9 +13433,9 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading an example image</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading target image</span>
 <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../data/img/example-3.png&quot;</span>
-<span class="n">low_byte_list</span> <span class="o">=</span> <span class="n">get_image_bytes</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="n">image_byte_list</span> <span class="o">=</span> <span class="n">get_file_bytes</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13451,7 +13451,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate code frequency</span>
 <span class="k">def</span> <span class="nf">get_term_freq</span><span class="p">(</span><span class="n">term_list</span><span class="p">):</span>
     <span class="n">term_freq</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">terms_count</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">low_byte_list</span><span class="p">))</span>
+    <span class="n">terms_count</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">term_list</span><span class="p">))</span>
     
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">terms_count</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -13472,7 +13472,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alphabet with 256 symbols</span>
-<span class="n">term_freq</span> <span class="o">=</span> <span class="n">get_term_freq</span><span class="p">(</span><span class="n">low_byte_list</span><span class="p">)</span>
+<span class="n">term_freq</span> <span class="o">=</span> <span class="n">get_term_freq</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">)</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">term_freq</span><span class="p">)</span>
 </pre></div>
 
@@ -13827,7 +13827,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
 <span class="n">compress_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg_size_current</span> <span class="o">-</span> <span class="n">msg_size_weighted</span><span class="p">)</span> <span class="o">/</span> <span class="n">msg_size_current</span>
-<span class="nb">round</span><span class="p">(</span><span class="n">compress_rate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">compress_rate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13840,42 +13840,48 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2.7</pre>
-</div>
-
-</div>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.7 %
+</pre>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Compress-File-with-Huffman-Code">2. Compress File with Huffman Code<a class="anchor-link" href="#2.-Compress-File-with-Huffman-Code">&#182;</a></h2>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing file with Huffman code</span>
-<span class="n">compress_list</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_compress_file</span><span class="p">(</span><span class="n">byte_list</span><span class="p">,</span> <span class="n">code_list</span><span class="p">):</span>
+    <span class="n">compress_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">byte_list</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">code_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">compress_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
+    
+    <span class="c1"># Return compress file</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compress_list</span><span class="p">)</span>
+</pre></div>
 
-<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">low_byte_list</span><span class="p">:</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-    <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">h_code</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="n">compress_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
+    </div>
+</div>
+</div>
 
-<span class="n">compress_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compress_list</span><span class="p">)</span>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing PNG image with Huffman code</span>
+<span class="n">compress_file</span> <span class="o">=</span> <span class="n">create_compress_file</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">,</span> <span class="n">h_code</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">compress_file</span><span class="p">[:</span><span class="mi">508</span><span class="p">])</span>
 </pre></div>
 
@@ -13904,45 +13910,11 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed image (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[19]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>451.83</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original image (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">low_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed PNG image (KB)</span>
+<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13961,7 +13933,517 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 
 <div class="output_text output_subarea output_execute_result">
+<pre>451.83</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original PNG image (KB)</span>
+<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[21]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
 <pre>464.38</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-Compress-Text-file-with-Huffman-Code">3. Compress Text file with Huffman Code<a class="anchor-link" href="#3.-Compress-Text-file-with-Huffman-Code">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading target image</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../data/text/book-1.txt&quot;</span>
+<span class="n">text_byte_list</span> <span class="o">=</span> <span class="n">get_file_bytes</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alphabet with 256 symbols</span>
+<span class="n">term_freq</span> <span class="o">=</span> <span class="n">get_term_freq</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">term_freq</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[23]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>110</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Normalize term frequency</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">term_freq</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">term_freq</span><span class="p">:</span>
+    <span class="n">term_freq</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="n">term_freq</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">/</span> <span class="n">n</span><span class="p">;</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">term_freq</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[24]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9999999999999998</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get Huffman coding</span>
+<span class="n">h_code</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">get_code</span><span class="p">(</span><span class="n">term_freq</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Showing data</span>
+<span class="n">codes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">term_freq</span><span class="p">,</span> <span class="n">h_code</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">codes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">codes</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;binary&quot;</span><span class="p">]</span>
+<span class="n">codes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[26]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>code</th>
+      <th>frequency</th>
+      <th>binary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>\n</td>
+      <td>0.0174728</td>
+      <td>101111</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>\r</td>
+      <td>0.0174728</td>
+      <td>101110</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td></td>
+      <td>0.155075</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>!</td>
+      <td>0.00140562</td>
+      <td>000010010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>#</td>
+      <td>7.95482e-07</td>
+      <td>11100010100100000110</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>$</td>
+      <td>1.59096e-06</td>
+      <td>1110001010010000000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>&amp;</td>
+      <td>1.59096e-06</td>
+      <td>1110001010010000001</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>(</td>
+      <td>0.000171824</td>
+      <td>000010011010</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>)</td>
+      <td>0.000171824</td>
+      <td>000010011011</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>*</td>
+      <td>6.44341e-05</td>
+      <td>11100000100111</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>,</td>
+      <td>0.0153067</td>
+      <td>011101</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>-</td>
+      <td>0.00204996</td>
+      <td>111000010</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>.</td>
+      <td>0.00634397</td>
+      <td>0100010</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+      <td>0.000125686</td>
+      <td>1110000010010</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>1</td>
+      <td>0.000168642</td>
+      <td>000010011001</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>2</td>
+      <td>7.79573e-05</td>
+      <td>0000100110000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>3</td>
+      <td>6.20476e-05</td>
+      <td>11100000100011</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>4</td>
+      <td>5.01154e-05</td>
+      <td>00001001111001</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>5</td>
+      <td>6.28431e-05</td>
+      <td>11100000100110</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>6</td>
+      <td>4.77289e-05</td>
+      <td>00001001110111</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate weighted message size average</span>
+<span class="n">msg_size_current</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">msg_size_weighted</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">h_code</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">msg_size_weighted</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="n">term_freq</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
+<span class="n">msg_size_weighted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4.624532355844688</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
+<span class="n">compress_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg_size_current</span> <span class="o">-</span> <span class="n">msg_size_weighted</span><span class="p">)</span> <span class="o">/</span> <span class="n">msg_size_current</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">compress_rate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>42.19 %
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing text file with Huffman code</span>
+<span class="n">compress_file</span> <span class="o">=</span> <span class="n">create_compress_file</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">,</span> <span class="n">h_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">compress_file</span><span class="p">[:</span><span class="mi">508</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1110001010010000010011100010100100000101111000101001001011111011101011110111001010001111111001110010011110101100000100001111110110110101100111001000000000101011110101000011111111101100101110111000110001110000111011001100100001110011010010011011100001100011000001101001111001110011110001010110101000010100011111001101110111001110010100011111110111000000000011000100111111011101110000011010011110111000001111111110111100110000101101110101111111000011001111100110111000001010011100111111101110101111101110101111
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed text file (KB)</span>
+<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[31]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>709.66</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
+<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[32]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1227.64</pre>
 </div>
 
 </div>
