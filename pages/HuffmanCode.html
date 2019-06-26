@@ -13914,7 +13914,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed PNG image (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;KB&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13927,15 +13927,13 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[20]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>451.83</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>451.83 KB
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13948,7 +13946,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original PNG image (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;KB&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13961,15 +13959,13 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>464.38</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>464.38 KB
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -14289,8 +14285,8 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
-<span class="n">msg_size_weighted</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Current message size average (bits per symbol)</span>
+<span class="n">msg_size_current</span>
 </pre></div>
 
     </div>
@@ -14309,7 +14305,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>4.624532355844688</pre>
+<pre>8</pre>
 </div>
 
 </div>
@@ -14321,6 +14317,40 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
+<span class="n">msg_size_weighted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[29]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4.624532355844688</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
@@ -14353,7 +14383,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing text file with Huffman code</span>
@@ -14386,11 +14416,11 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed text file (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;KB&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14403,15 +14433,13 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[31]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>709.66</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>709.66 KB
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -14420,11 +14448,11 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;KB&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14437,15 +14465,13 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[32]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1227.64</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1227.64 KB
+</pre>
 </div>
-
 </div>
 
 </div>
