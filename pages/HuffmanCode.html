@@ -13177,10 +13177,10 @@ div#notebook {
         <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_symbols</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]))</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_symbols</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]))</span>
         
         <span class="c1"># Ensure probabilities sum to 1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">normalize_weights</span><span class="p">(</span><span class="n">p_symbols</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_weights</span><span class="p">(</span><span class="n">p_symbols</span><span class="p">)</span>
         
         <span class="c1"># Returns Huffman code</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_code</span><span class="p">(</span><span class="n">p_symbols</span><span class="p">);</span>
@@ -13194,7 +13194,7 @@ div#notebook {
         
         <span class="c1"># Create a new distribution by merging lowest prob pair</span>
         <span class="n">p_prime</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lowest_prob_pair</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_lowest_prob_pair</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">p_prime</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="n">p_prime</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
         <span class="n">p_prime</span><span class="p">[</span><span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="p">]</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">p2</span>
         
@@ -13207,7 +13207,7 @@ div#notebook {
         <span class="k">return</span> <span class="n">code</span><span class="p">;</span>
     
     <span class="c1"># Return pair of symbols from distribution p with lowest probabilities</span>
-    <span class="k">def</span> <span class="nf">lowest_prob_pair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_lowest_prob_pair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
         
         <span class="c1"># Ensure there are at least 2 symbols in the dist.</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
@@ -13217,7 +13217,7 @@ div#notebook {
         <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">);</span>
     
     <span class="c1"># Makes sure all weights add up to 1</span>
-    <span class="k">def</span> <span class="nf">normalize_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_symbols</span><span class="p">,</span> <span class="n">t_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_normalize_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_symbols</span><span class="p">,</span> <span class="n">t_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p_symbols</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
         
         <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">t_weight</span><span class="p">:</span>
@@ -13247,7 +13247,55 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Simple-Example">Simple Example<a class="anchor-link" href="#Simple-Example">&#182;</a></h3>
+<p><strong>Input:</strong>
+$$ A = \{ a_1, a_2, a_3, ..., a_n \} \tag{1} $$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$ W = \{ w_1, w_2, w_3, ..., w_n \} \tag{2} $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$ n = |A| $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Output:</strong>
+$$ C(A, W) = \{ c_1, c_2, c_3, ..., c_n \} \tag{3} $$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Target:</strong>
+$$ L(C) = \sum_{i=1}^n{w_i . length(c_i)} \tag{4} $$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Simple-Examples">Simple Examples<a class="anchor-link" href="#Simple-Examples">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13277,7 +13325,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;a&#39;: &#39;0&#39;}</pre>
+<pre>{&#39;a&#39;: &#39;1&#39;}</pre>
 </div>
 
 </div>
@@ -13327,7 +13375,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alphabet with 5 symbols and total probability equal than 1.0</span>
-<span class="n">sample_3</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.09</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mf">0.13</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mf">0.16</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mf">0.45</span> <span class="p">}</span>
+<span class="n">sample_3</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mf">0.30</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mf">0.16</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mf">0.29</span> <span class="p">}</span>
 <span class="n">hc</span><span class="o">.</span><span class="n">get_code</span><span class="p">(</span><span class="n">sample_3</span><span class="p">)</span>
 </pre></div>
 
@@ -13347,7 +13395,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;f&#39;: &#39;0&#39;, &#39;e&#39;: &#39;111&#39;, &#39;c&#39;: &#39;100&#39;, &#39;d&#39;: &#39;101&#39;, &#39;a&#39;: &#39;1100&#39;, &#39;b&#39;: &#39;1101&#39;}</pre>
+<pre>{&#39;e&#39;: &#39;10&#39;, &#39;c&#39;: &#39;11&#39;, &#39;d&#39;: &#39;00&#39;, &#39;a&#39;: &#39;010&#39;, &#39;b&#39;: &#39;011&#39;}</pre>
 </div>
 
 </div>
@@ -13386,7 +13434,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading an example image</span>
-<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../data/img/example-2.png&quot;</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../data/img/example-3.png&quot;</span>
 <span class="n">low_byte_list</span> <span class="o">=</span> <span class="n">get_image_bytes</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 </pre></div>
 
@@ -13398,40 +13446,6 @@ div#notebook {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the image (KB)</span>
-<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">low_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[9]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2884.01</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate code frequency</span>
@@ -13454,7 +13468,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alphabet with 256 symbols</span>
@@ -13472,7 +13486,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[11]:</div>
+    <div class="prompt output_prompt">Out[10]:</div>
 
 
 
@@ -13489,7 +13503,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Normalize term frequency</span>
@@ -13509,13 +13523,13 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[12]:</div>
+    <div class="prompt output_prompt">Out[11]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9999999999999999</pre>
+<pre>0.9999999999999994</pre>
 </div>
 
 </div>
@@ -13526,7 +13540,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get Huffman coding</span>
@@ -13540,7 +13554,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Showing data</span>
@@ -13560,7 +13574,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[14]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
@@ -13592,122 +13606,122 @@ div#notebook {
     <tr>
       <th>0</th>
       <td> </td>
-      <td>0.00324222</td>
-      <td>00110111</td>
+      <td>0.0284127</td>
+      <td>01110</td>
     </tr>
     <tr>
       <th>1</th>
       <td></td>
-      <td>0.00321953</td>
-      <td>00110100</td>
+      <td>0.0197444</td>
+      <td>110011</td>
     </tr>
     <tr>
       <th>2</th>
       <td></td>
-      <td>0.00275022</td>
-      <td>00001001</td>
+      <td>0.0157867</td>
+      <td>100100</td>
     </tr>
     <tr>
       <th>3</th>
       <td></td>
-      <td>0.00405015</td>
-      <td>10010101</td>
+      <td>0.0114189</td>
+      <td>000100</td>
     </tr>
     <tr>
       <th>4</th>
       <td></td>
-      <td>0.00258937</td>
-      <td>111100011</td>
+      <td>0.0123</td>
+      <td>001110</td>
     </tr>
     <tr>
       <th>5</th>
       <td></td>
-      <td>0.00314335</td>
-      <td>00101110</td>
+      <td>0.00859678</td>
+      <td>1010010</td>
     </tr>
     <tr>
       <th>6</th>
       <td></td>
-      <td>0.00338816</td>
-      <td>01000110</td>
+      <td>0.00885964</td>
+      <td>1010111</td>
     </tr>
     <tr>
       <th>7</th>
       <td></td>
-      <td>0.00461089</td>
-      <td>11001101</td>
+      <td>0.00677985</td>
+      <td>0101111</td>
     </tr>
     <tr>
       <th>8</th>
       <td></td>
-      <td>0.00267674</td>
-      <td>111111100</td>
+      <td>0.010216</td>
+      <td>1110001</td>
     </tr>
     <tr>
       <th>9</th>
       <td>\t</td>
-      <td>0.00325069</td>
-      <td>00111011</td>
+      <td>0.00663264</td>
+      <td>0101011</td>
     </tr>
     <tr>
       <th>10</th>
       <td>\n</td>
-      <td>0.00262696</td>
-      <td>111101111</td>
+      <td>0.00697332</td>
+      <td>0110101</td>
     </tr>
     <tr>
       <th>11</th>
       <td></td>
-      <td>0.00401426</td>
-      <td>10010000</td>
+      <td>0.00477786</td>
+      <td>11000010</td>
     </tr>
     <tr>
       <th>12</th>
       <td></td>
-      <td>0.00308341</td>
-      <td>00100111</td>
+      <td>0.00752008</td>
+      <td>1000001</td>
     </tr>
     <tr>
       <th>13</th>
       <td>\r</td>
-      <td>0.00378332</td>
-      <td>01110101</td>
+      <td>0.00512063</td>
+      <td>11100100</td>
     </tr>
     <tr>
       <th>14</th>
       <td></td>
-      <td>0.00408367</td>
-      <td>10011001</td>
+      <td>0.00532041</td>
+      <td>11110001</td>
     </tr>
     <tr>
       <th>15</th>
       <td></td>
-      <td>0.00490142</td>
-      <td>11011111</td>
+      <td>0.00465168</td>
+      <td>10111100</td>
     </tr>
     <tr>
       <th>16</th>
       <td></td>
-      <td>0.00274717</td>
-      <td>00001000</td>
+      <td>0.00906783</td>
+      <td>1011011</td>
     </tr>
     <tr>
       <th>17</th>
       <td></td>
-      <td>0.00271331</td>
-      <td>111111101</td>
+      <td>0.00536037</td>
+      <td>11110011</td>
     </tr>
     <tr>
       <th>18</th>
       <td></td>
-      <td>0.00246307</td>
-      <td>111000110</td>
+      <td>0.00490824</td>
+      <td>11001001</td>
     </tr>
     <tr>
       <th>19</th>
       <td></td>
-      <td>0.00409417</td>
-      <td>10011011</td>
+      <td>0.00446242</td>
+      <td>10110010</td>
     </tr>
   </tbody>
 </table>
@@ -13722,19 +13736,15 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate simple and weighted message size average</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate weighted message size average</span>
 <span class="n">msg_size_current</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">msg_size_simple</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">msg_size_weighted</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">h_code</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">msg_size_simple</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="n">msg_size_weighted</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="n">term_freq</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        
-<span class="n">msg_size_simple</span> <span class="o">=</span> <span class="n">msg_size_simple</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">h_code</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13744,11 +13754,45 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Current message size average (bits per symbol)</span>
 <span class="n">msg_size_current</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>8</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
+<span class="n">msg_size_weighted</span>
 </pre></div>
 
     </div>
@@ -13767,7 +13811,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>8</pre>
+<pre>7.783808280076634</pre>
 </div>
 
 </div>
@@ -13781,8 +13825,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Simple message size average (bits per symbol)</span>
-<span class="n">msg_size_simple</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
+<span class="n">compress_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg_size_current</span> <span class="o">-</span> <span class="n">msg_size_weighted</span><span class="p">)</span> <span class="o">/</span> <span class="n">msg_size_current</span>
+<span class="nb">round</span><span class="p">(</span><span class="n">compress_rate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13801,7 +13846,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>8.02734375</pre>
+<pre>2.7</pre>
 </div>
 
 </div>
@@ -13809,14 +13854,29 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.-Compress-File-with-Huffman-Code">2. Compress File with Huffman Code<a class="anchor-link" href="#2.-Compress-File-with-Huffman-Code">&#182;</a></h2>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
-<span class="n">msg_size_weighted</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing file with Huffman code</span>
+<span class="n">compress_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">low_byte_list</span><span class="p">:</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+    <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">h_code</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">compress_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
+
+<span class="n">compress_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compress_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">compress_file</span><span class="p">[:</span><span class="mi">508</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -13829,15 +13889,13 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[18]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>7.997494263047528</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1110101111010001000110101000010111110010001101011000101001101010111001110011101110010000000100100111110111111111111101101110011100110101011100111001110101011100011111100010001000111001110011101111010011000000011010100111001000001110011100111000111000011000101111101111000011011111001110011101010011010100000011000010110110100101010010100100111001110011101100111111101011111110110000101110100000011101110100101111000001011010110110000001110011100001000111010100010011110101111100010010101111110011001100111010
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13849,9 +13907,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio</span>
-<span class="n">compress_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg_size_current</span> <span class="o">-</span> <span class="n">msg_size_weighted</span><span class="p">)</span> <span class="o">/</span> <span class="n">msg_size_current</span>
-<span class="nb">round</span><span class="p">(</span><span class="n">compress_rate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed image (KB)</span>
+<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13870,7 +13927,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.03</pre>
+<pre>451.83</pre>
 </div>
 
 </div>
@@ -13878,29 +13935,14 @@ div#notebook {
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Compress-File-with-Huffman-Code">2. Compress File with Huffman Code<a class="anchor-link" href="#2.-Compress-File-with-Huffman-Code">&#182;</a></h2>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing file with Huffman code</span>
-<span class="n">compress_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">low_byte_list</span><span class="p">:</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-    <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">h_code</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="n">compress_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
-
-<span class="n">compress_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compress_list</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">compress_file</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original image (KB)</span>
+<span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">low_byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13913,44 +13955,13 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>00110011000111011001001001111011011101011111011110010010111110111100110111001101110011011101110101010000010001100111101001100000100001101110011011111001101001111010011011100110111111100011010011111111111000100011000110111001101110011011100100101001101101011011011001111001101110011011100110111001101001010000000000100011110110010010000110111101010011000000001111111110101110011011100110111001101111111000111000111100111100100000110011110000110111001101110101111110111100100100000000011010100110010111
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compress_file</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2883.1</pre>
+<pre>464.38</pre>
 </div>
 
 </div>
