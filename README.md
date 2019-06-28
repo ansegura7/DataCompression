@@ -16,6 +16,14 @@ Symbols distribution of files. Data compression/decompression algorithms.
 	<li>Compress Text file with Huffman Code</li>
 </ul>
 </details>
+<details>
+<summary>3. <a href="https://ansegura7.github.io/DataCompression/pages/CompressionAndEntropy.html" >Compression & Entropy</a></summary>
+<ul>
+	<li>Compression with current Entropy</li>
+	<li>Changing Entropy for higher Compression</li>
+	<li>Restoring Entropy to Decompression</li>
+</ul>
+</details>
 
 ## Contributing and Feedback
 Any kind of feedback/criticism would be greatly appreciated (algorithm design, documentation, improvement ideas, spelling mistakes, etc...).
