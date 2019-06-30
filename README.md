@@ -1,5 +1,5 @@
 # Data Compression
-Symbols distribution of files. Data compression/decompression algorithms.
+Project in which we explore different algorithms and compression approaches such as Huffman coding or entropy change. The distribution of the symbols of a file (image, electronic book, etc.) is also analyzed.
 
 ## Example
 <details>
@@ -24,6 +24,9 @@ Symbols distribution of files. Data compression/decompression algorithms.
 	<li>Restoring Entropy to Decompression</li>
 </ul>
 </details>
+
+## Data
+PNG images and plain textbook of different sizes.
 
 ## Contributing and Feedback
 Any kind of feedback/criticism would be greatly appreciated (algorithm design, documentation, improvement ideas, spelling mistakes, etc...).
