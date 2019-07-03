@@ -6,6 +6,7 @@ Project in which we explore different algorithms and compression approaches such
 <summary>1. <a href="https://ansegura7.github.io/DataCompression/pages/SymbolsDistribution.html" >Symbols Distribution</a></summary>
 <ul>
 	<li>Bytes Distribution</li>
+	<li>Entropy</li>
 </ul>
 </details>
 <details>
@@ -14,6 +15,7 @@ Project in which we explore different algorithms and compression approaches such
 	<li>Huffman Code from Scratch</li>
 	<li>Compress Image with Huffman Code</li>
 	<li>Compress Text file with Huffman Code</li>
+	<li>Decompress file with Huffman Code</li>
 </ul>
 </details>
 <details>
