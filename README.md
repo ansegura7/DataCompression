@@ -30,6 +30,20 @@ Project in which we explore different algorithms and compression approaches such
 ## Data
 PNG images and plain textbook of different sizes.
 
+## Python Dependencies
+```
+    import io
+    import math
+    import timeit
+    import numpy as np
+    import pandas as pd
+    from collections import Counter
+    from PIL import Image
+    from scipy.stats import entropy
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+```
+
 ## Contributing and Feedback
 Any kind of feedback/criticism would be greatly appreciated (algorithm design, documentation, improvement ideas, spelling mistakes, etc...).
 
