@@ -2,7 +2,7 @@
 Project in which we explore different algorithms and compression approaches such as Huffman coding or entropy change. The distribution of the symbols of a file (image, electronic book, etc.) is also analyzed.
 
 ## Example
-<details>
+<details open>
 <summary>1. <a href="https://ansegura7.github.io/DataCompression/pages/SymbolsDistribution.html" >Symbols Distribution</a></summary>
 <ul>
 	<li>Bytes Distribution</li>
