@@ -13571,9 +13571,7 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Convert a byte list to a bits string</span>
 <span class="k">def</span> <span class="nf">byte_list_to_bit_string</span><span class="p">(</span><span class="n">byte_list</span><span class="p">):</span>
-    <span class="n">bit_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">byte_list</span><span class="p">:</span>
-        <span class="n">bit_string</span> <span class="o">+=</span> <span class="nb">bin</span><span class="p">(</span><span class="n">byte</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">bit_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">bin</span><span class="p">(</span><span class="n">byte</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">byte_list</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">bit_string</span>
 </pre></div>
 
@@ -13593,7 +13591,7 @@ div#notebook {
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bit_string</span><span class="p">)</span> <span class="o">//</span> <span class="mi">8</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">ix_start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">8</span>
-        <span class="n">ix_end</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">8</span>
+        <span class="n">ix_end</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span>
         <span class="n">byte</span> <span class="o">=</span> <span class="n">bit_string</span><span class="p">[</span><span class="n">ix_start</span><span class="p">:</span><span class="n">ix_end</span><span class="p">]</span>
         <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">byte_list</span>
@@ -13681,6 +13679,7 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Apply Linear Cellular Automata rule to current automaton</span>
 <span class="k">def</span> <span class="nf">apply_lca_rule</span><span class="p">(</span><span class="n">automaton</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">n_cell</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">forward</span><span class="p">):</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
     <span class="n">new_automaton</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">curr_bit_string</span> <span class="o">=</span> <span class="p">(</span><span class="n">automaton</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     
@@ -13715,8 +13714,8 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Restoring entropy process</span>
 <span class="k">def</span> <span class="nf">restore_entropy</span><span class="p">(</span><span class="n">byte_list</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">forward</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">bit_string</span> <span class="o">=</span> <span class="n">byte_list_to_bit_string</span><span class="p">(</span><span class="n">byte_list</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bit_string</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">apply_lca_rule</span><span class="p">(</span><span class="n">bit_string</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">forward</span><span class="p">)</span>
+    <span class="n">byte_list</span> <span class="o">=</span> <span class="n">apply_lca_rule</span><span class="p">(</span><span class="n">bit_string</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bit_string</span><span class="p">),</span> <span class="n">r</span><span class="p">,</span> <span class="n">forward</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">byte_list</span>
 </pre></div>
 
     </div>
@@ -13737,7 +13736,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step 1 - Create a RLCA rule</span>
-<span class="n">r</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">key</span> <span class="o">=</span> <span class="n">create_rlca_rule</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">key</span>
 </pre></div>
@@ -13758,7 +13757,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{0: 1, 1: 1, 2: 0, 3: 0, 4: 1}</pre>
+<pre>{0: 1, 1: 1, 2: 0, 3: 0, 4: 1, 5: 0, 6: 0}</pre>
 </div>
 
 </div>
@@ -13773,7 +13772,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step 2 - Have a byte array</span>
-<span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">55</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 
@@ -13791,7 +13790,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[140, 26, 196, 206, 78, 114, 244, 132, 139, 211, 191, 129, 158, 231, 228, 212, 184, 160, 62, 212, 103, 2, 16, 127, 32]
+<pre>[150, 195, 12, 87, 31, 241, 191, 168, 173, 47, 248, 252, 193, 192, 243, 6, 93, 52, 186, 170, 127, 119, 217, 84, 223, 221, 65, 136, 89, 162, 149, 160, 209, 241, 138, 121, 47, 89, 48, 162, 141, 212, 59, 81, 106, 24, 146, 11, 24, 145, 179, 39, 153, 133, 219]
 </pre>
 </div>
 </div>
@@ -13824,7 +13823,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[180, 35, 91, 103, 187, 61, 47, 7, 15, 25, 65, 252, 197, 48, 123, 27, 75, 127, 133, 24, 179, 252, 16, 131, 192]
+<pre>[209, 126, 199, 236, 230, 62, 206, 86, 90, 128, 31, 35, 4, 66, 204, 25, 234, 134, 229, 85, 157, 216, 38, 42, 50, 34, 134, 119, 141, 89, 75, 67, 206, 63, 101, 166, 129, 250, 150, 112, 194, 41, 218, 173, 20, 206, 109, 197, 142, 107, 255, 90, 102, 8, 37]
 </pre>
 </div>
 </div>
@@ -13857,7 +13856,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[140, 26, 196, 206, 78, 114, 244, 132, 139, 211, 191, 129, 158, 231, 228, 212, 184, 160, 62, 212, 103, 2, 16, 127, 32]
+<pre>[150, 195, 12, 87, 31, 241, 191, 168, 173, 47, 248, 252, 193, 192, 243, 6, 93, 52, 186, 170, 127, 119, 217, 84, 223, 221, 65, 136, 89, 162, 149, 160, 209, 241, 138, 121, 47, 89, 48, 162, 141, 212, 59, 81, 106, 24, 146, 11, 24, 145, 179, 39, 153, 133, 219]
 </pre>
 </div>
 </div>
@@ -13925,7 +13924,7 @@ div#notebook {
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
     
     <span class="c1"># Local variables</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">bit_string</span> <span class="o">=</span> <span class="n">byte_list_to_bit_string</span><span class="p">(</span><span class="n">byte_list</span><span class="p">)</span>
     <span class="n">n_cell</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bit_string</span><span class="p">)</span>
     <span class="n">best_entropy</span> <span class="o">=</span> <span class="mi">8</span>
@@ -13935,6 +13934,7 @@ div#notebook {
     
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;key size:&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;neighborhood:&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;file size:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">byte_list</span><span class="p">),</span> <span class="s1">&#39;bytes&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;file size:&#39;</span><span class="p">,</span> <span class="n">n_cell</span><span class="p">,</span> <span class="s1">&#39;bits&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;initial entropy:&#39;</span><span class="p">,</span> <span class="n">best_entropy</span><span class="p">)</span>
@@ -13948,7 +13948,7 @@ div#notebook {
         <span class="n">curr_byte_list</span> <span class="o">=</span> <span class="n">apply_lca_rule</span><span class="p">(</span><span class="n">bit_string</span><span class="p">,</span> <span class="n">curr_rule</span><span class="p">,</span> <span class="n">n_cell</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         
         <span class="c1"># Get current entropy</span>
-        <span class="n">curr_entropy</span> <span class="o">=</span> <span class="n">entropy_shannon</span><span class="p">(</span><span class="n">curr_byte_list</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">curr_entropy</span> <span class="o">=</span> <span class="n">entropy_shannon</span><span class="p">(</span><span class="n">curr_byte_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         
         <span class="c1"># Update best option</span>
         <span class="k">if</span> <span class="n">curr_entropy</span> <span class="o">&lt;=</span> <span class="n">best_entropy</span><span class="p">:</span>
@@ -13985,7 +13985,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find file with low entropy</span>
-<span class="n">r</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">best_option</span> <span class="o">=</span> <span class="n">find_low_entropy</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
 </pre></div>
@@ -14004,13 +14004,16 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>key size: 512
+<pre>key size: 2048
+neighborhood: 5
 file size: 10000 bytes
 file size: 80000 bits
 initial entropy: 8
   key: 0 , new entropy: 5.163591844716373 , diff: -2.8364081552836273
-  key: 511 , new entropy: 5.163591844716373 , diff: 0.0
-iter: 512 , elapsed time 369.2620548 s
+  key: 1 , new entropy: 5.163591844716373 , diff: 0.0
+  key: 1023 , new entropy: 5.163591844716373 , diff: 0.0
+  key: 2047 , new entropy: 5.163591844716373 , diff: 0.0
+iter: 2048 , elapsed time 1981.3981239 s
 </pre>
 </div>
 </div>
@@ -14044,7 +14047,8 @@ iter: 512 , elapsed time 369.2620548 s
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(5.163591844716373, {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1})</pre>
+<pre>(5.163591844716373,
+ {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1})</pre>
 </div>
 
 </div>
