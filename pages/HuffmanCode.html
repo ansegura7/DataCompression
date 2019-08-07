@@ -14525,21 +14525,6 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compare if two files are equals for equality and element-wise</span>
-<span class="k">def</span> <span class="nf">compare_files</span><span class="p">(</span><span class="n">file_a</span><span class="p">,</span> <span class="n">file_b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equiv</span><span class="p">(</span><span class="n">file_a</span><span class="p">,</span> <span class="n">file_b</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14549,7 +14534,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decompress a binary file using a huffman code</span>
@@ -14599,7 +14584,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decode/Decompress file using the Huffman code</span>
@@ -14620,7 +14605,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>elapsed time 1.4793026 s
+<pre>elapsed time 1.5431968 s
 </pre>
 </div>
 </div>
@@ -14631,7 +14616,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -14667,6 +14652,21 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <h4 id="Comparing-if-the-original-file-and-the-decompressed-file-are-the-same-(equals)">Comparing if the original file and the decompressed file are the same (equals)<a class="anchor-link" href="#Comparing-if-the-original-file-and-the-decompressed-file-are-the-same-(equals)">&#182;</a></h4>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compare if two files are equals for equality and element-wise</span>
+<span class="k">def</span> <span class="nf">compare_files</span><span class="p">(</span><span class="n">file_a</span><span class="p">,</span> <span class="n">file_b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equiv</span><span class="p">(</span><span class="n">file_a</span><span class="p">,</span> <span class="n">file_b</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
