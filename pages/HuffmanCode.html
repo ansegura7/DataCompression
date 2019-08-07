@@ -14538,7 +14538,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decompress a binary file using a huffman code</span>
-<span class="k">def</span> <span class="nf">decompress_bin_file</span><span class="p">(</span><span class="n">byte_string</span><span class="p">,</span> <span class="n">code_list</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">decompress_bin_file</span><span class="p">(</span><span class="n">byte_string</span><span class="p">,</span> <span class="n">code_list</span><span class="p">,</span> <span class="n">forward</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
     <span class="n">byte_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">codes_size</span> <span class="o">=</span> <span class="p">[]</span>
@@ -14548,15 +14548,17 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">codes_size</span><span class="p">:</span>
             <span class="n">codes_size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">codes_size</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">codes_size</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">forward</span><span class="p">)</span>
     
     <span class="n">n_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">byte_string</span><span class="p">)</span>
     <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">ix</span> <span class="o">&lt;</span> <span class="n">n_size</span><span class="p">:</span>
         <span class="n">byte</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         
         <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">codes_size</span><span class="p">:</span>
             <span class="n">possible_code</span> <span class="o">=</span> <span class="n">byte_string</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span><span class="n">ix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
+            <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span>
             
             <span class="k">if</span> <span class="n">possible_code</span> <span class="ow">in</span> <span class="n">inv_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">byte</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
@@ -14571,7 +14573,14 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
     
     <span class="c1"># Elapsed time</span>
     <span class="n">elapsed</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+    
+    <span class="c1"># Algorithm accuracy</span>
+    <span class="n">algo_accuracy</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">byte_list</span><span class="p">)</span> <span class="o">/</span> <span class="n">tries</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Verbose</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">codes_size</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;elapsed time&#39;</span><span class="p">,</span> <span class="n">elapsed</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tries:&#39;</span><span class="p">,</span> <span class="n">tries</span><span class="p">,</span> <span class="s1">&#39;, acurracy:&#39;</span><span class="p">,</span> <span class="n">algo_accuracy</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">byte_list</span><span class="p">;</span>
 </pre></div>
@@ -14587,7 +14596,8 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decode/Decompress file using the Huffman code</span>
-<span class="n">decompress_file</span> <span class="o">=</span> <span class="n">decompress_bin_file</span><span class="p">(</span><span class="n">compress_file</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">)</span>
+<span class="n">forward</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">decompress_file</span> <span class="o">=</span> <span class="n">decompress_bin_file</span><span class="p">(</span><span class="n">compress_file</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">,</span> <span class="n">forward</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14604,7 +14614,9 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>elapsed time 1.6711064 s
+<pre>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
+elapsed time 1.6059911999999998 s
+tries: 3299242 , acurracy: 4.76 %
 </pre>
 </div>
 </div>
