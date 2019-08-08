@@ -13873,7 +13873,8 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Main-function:-compress-a-binary-file-using-a-huffman-code">Main function: compress a binary file using a huffman code<a class="anchor-link" href="#Main-function:-compress-a-binary-file-using-a-huffman-code">&#182;</a></h4>
+<p><strong>Main function:</strong> compress a binary file using a huffman code</p>
+
 </div>
 </div>
 </div>
@@ -13884,15 +13885,26 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compress a binary file using a huffman code</span>
 <span class="k">def</span> <span class="nf">compress_bin_file</span><span class="p">(</span><span class="n">byte_list</span><span class="p">,</span> <span class="n">code_list</span><span class="p">):</span>
+    <span class="n">bits_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="n">compress_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">symbols_used</span> <span class="o">=</span> <span class="p">{}</span>
     
     <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">byte_list</span><span class="p">:</span>
         <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">code_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="n">compress_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
+        
+        <span class="c1"># Save frequency of used symbols</span>
+        <span class="n">sym_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sym_len</span> <span class="ow">in</span> <span class="n">symbols_used</span><span class="p">:</span>
+            <span class="n">symbols_used</span><span class="p">[</span><span class="n">sym_len</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symbols_used</span><span class="p">[</span><span class="n">sym_len</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     
-    <span class="c1"># Return compress file</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compress_list</span><span class="p">)</span>
+    <span class="n">bits_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">compress_list</span><span class="p">)</span>
+    
+    <span class="c1"># Return compressed file and used symbols</span>
+    <span class="k">return</span> <span class="n">bits_string</span><span class="p">,</span> <span class="n">symbols_used</span>
 </pre></div>
 
     </div>
@@ -13906,7 +13918,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing PNG image with Huffman code</span>
-<span class="n">compress_file</span> <span class="o">=</span> <span class="n">compress_bin_file</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">)</span>
+<span class="n">compress_file</span><span class="p">,</span> <span class="n">symbols_used</span> <span class="o">=</span> <span class="n">compress_bin_file</span><span class="p">(</span><span class="n">image_byte_list</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">compress_file</span><span class="p">[:</span><span class="mi">508</span><span class="p">])</span>
 </pre></div>
 
@@ -13997,6 +14009,40 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show frequency of used symbols</span>
+<span class="n">symbols_used</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[22]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{9: 107890, 8: 234607, 7: 68876, 5: 13511, 6: 50643}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14014,7 +14060,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading target image</span>
@@ -14029,7 +14075,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alphabet with 256 symbols</span>
@@ -14047,7 +14093,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[23]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
@@ -14064,7 +14110,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Normalize term frequency</span>
@@ -14084,7 +14130,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[24]:</div>
+    <div class="prompt output_prompt">Out[25]:</div>
 
 
 
@@ -14101,7 +14147,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get Huffman coding</span>
@@ -14115,7 +14161,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Showing data</span>
@@ -14135,7 +14181,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[26]:</div>
+    <div class="prompt output_prompt">Out[27]:</div>
 
 
 
@@ -14297,7 +14343,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate weighted message size average</span>
@@ -14315,7 +14361,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Current message size average (bits per symbol)</span>
@@ -14332,7 +14378,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[28]:</div>
+    <div class="prompt output_prompt">Out[29]:</div>
 
 
 
@@ -14349,7 +14395,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
@@ -14366,7 +14412,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[29]:</div>
+    <div class="prompt output_prompt">Out[30]:</div>
 
 
 
@@ -14390,7 +14436,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
@@ -14423,11 +14469,11 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing text file with Huffman code</span>
-<span class="n">compress_file</span> <span class="o">=</span> <span class="n">compress_bin_file</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">)</span>
+<span class="n">compress_file</span><span class="p">,</span> <span class="n">symbols_used</span> <span class="o">=</span> <span class="n">compress_bin_file</span><span class="p">(</span><span class="n">text_byte_list</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">compress_file</span><span class="p">[:</span><span class="mi">508</span><span class="p">])</span>
 </pre></div>
 
@@ -14456,7 +14502,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed text file (KB)</span>
@@ -14488,7 +14534,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -14518,6 +14564,56 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show frequency of used symbols</span>
+<span class="n">symbols_used</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[35]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{20: 13,
+ 6: 217634,
+ 9: 18481,
+ 4: 599860,
+ 3: 194944,
+ 10: 14113,
+ 5: 158394,
+ 11: 6396,
+ 7: 39957,
+ 8: 4181,
+ 12: 1453,
+ 13: 963,
+ 14: 580,
+ 19: 20,
+ 16: 56,
+ 18: 22,
+ 15: 32}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14528,13 +14624,14 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Main-function:-decompress-a-binary-file-using-a-huffman-code">Main function: decompress a binary file using a huffman code<a class="anchor-link" href="#Main-function:-decompress-a-binary-file-using-a-huffman-code">&#182;</a></h4>
+<h3 id="4.1.-Simple-approach">4.1. Simple approach<a class="anchor-link" href="#4.1.-Simple-approach">&#182;</a></h3><p>Test with all huffman codes until the file is completely decompressed. The codes are sorted ascending by their length.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decompress a binary file using a huffman code</span>
@@ -14553,23 +14650,18 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
     <span class="n">n_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">byte_string</span><span class="p">)</span>
     <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
+    
     <span class="k">while</span> <span class="n">ix</span> <span class="o">&lt;</span> <span class="n">n_size</span><span class="p">:</span>
-        <span class="n">byte</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         
         <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">codes_size</span><span class="p">:</span>
-            <span class="n">possible_code</span> <span class="o">=</span> <span class="n">byte_string</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span><span class="n">ix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
             <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">possible_code</span> <span class="o">=</span> <span class="n">byte_string</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span><span class="n">ix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
             
             <span class="k">if</span> <span class="n">possible_code</span> <span class="ow">in</span> <span class="n">inv_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">byte</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
+                <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
                 <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span> <span class="o">+</span> <span class="n">size</span>
                 <span class="k">break</span>
-        
-        <span class="k">if</span> <span class="n">byte</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;no exists&#39;</span><span class="p">,</span> <span class="n">ix</span><span class="p">)</span>
-            <span class="k">break</span>
     
     <span class="c1"># Elapsed time</span>
     <span class="n">elapsed</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
@@ -14592,7 +14684,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decode/Decompress file using the Huffman code</span>
@@ -14615,7 +14707,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
-elapsed time 1.6059911999999998 s
+elapsed time 2.140812 s
 tries: 3299242 , acurracy: 4.76 %
 </pre>
 </div>
@@ -14627,7 +14719,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -14666,7 +14758,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compare if two files are equals for equality and element-wise</span>
@@ -14681,7 +14773,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Comparing files</span>
@@ -14698,7 +14790,7 @@ tries: 3299242 , acurracy: 4.76 %
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[38]:</div>
+    <div class="prompt output_prompt">Out[40]:</div>
 
 
 
