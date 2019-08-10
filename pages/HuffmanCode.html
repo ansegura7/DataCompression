@@ -14711,7 +14711,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
-elapsed time 1.6536032 s
+elapsed time 2.5183431 s
 tries: 3299242 , acurracy: 4.76 %
 </pre>
 </div>
@@ -14819,7 +14819,7 @@ tries: 3299242 , acurracy: 4.76 %
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Test with selected pseudo-random huffman codes, based on their probability of occurrence.</p>
+<p>Test with selected pseudo-random huffman codes, based on their probability of occurrence. <a href="#link_two">[2]</a></p>
 
 </div>
 </div>
@@ -14953,6 +14953,38 @@ tries: 3299242 , acurracy: 4.76 %
 <div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Context</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hf_code len:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hf_code</span><span class="p">),</span> <span class="s1">&#39;, symbols_used:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbols_used</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>hf_code len: 110 , symbols_used: 17
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decode/Decompress file using the Huffman code</span>
 <span class="n">decompress_file2</span> <span class="o">=</span> <span class="n">decompress_bin_file_prob</span><span class="p">(</span><span class="n">compress_file</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">,</span> <span class="n">symbols_used</span><span class="p">)</span>
 </pre></div>
@@ -14971,8 +15003,8 @@ tries: 3299242 , acurracy: 4.76 %
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>elapsed time 111.3536583 s
-tries: 29044484 , acurracy: 0.54 %
+<pre>elapsed time 104.0849113 s
+tries: 26376363 , acurracy: 0.6 %
 </pre>
 </div>
 </div>
@@ -14983,7 +15015,7 @@ tries: 29044484 , acurracy: 0.54 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -15022,7 +15054,7 @@ tries: 29044484 , acurracy: 0.54 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Comparing files</span>
@@ -15039,7 +15071,7 @@ tries: 29044484 , acurracy: 0.54 %
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[45]:</div>
+    <div class="prompt output_prompt">Out[46]:</div>
 
 
 
@@ -15064,7 +15096,8 @@ tries: 29044484 , acurracy: 0.54 %
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a name='link_one' href='https://en.wikipedia.org/wiki/Huffman_coding' target='_blank' >[1]</a> Wikipedia - Huffman coding.</p>
+<p><a name='link_one' href='https://en.wikipedia.org/wiki/Huffman_coding' target='_blank' >[1]</a> Wikipedia - Huffman coding.<br>
+<a name='link_two' href='https://en.wikipedia.org/wiki/Randomized_algorithm' target='_blank' >[2]</a> Wikipedia - Randomized algorithm.</p>
 
 </div>
 </div>
