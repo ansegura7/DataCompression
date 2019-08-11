@@ -14711,7 +14711,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
-elapsed time 1.7882958 s
+elapsed time 1.7995475 s
 tries: 3299242 , acurracy: 4.76 %
 </pre>
 </div>
@@ -14913,9 +14913,8 @@ tries: 3299242 , acurracy: 4.76 %
     <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">ix</span> <span class="o">&lt;</span> <span class="n">n_size</span><span class="p">:</span>
-        <span class="n">search</span> <span class="o">=</span> <span class="kc">True</span>
         
-        <span class="k">while</span> <span class="n">search</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span>
             
             <span class="c1"># Get code based on probability</span>
@@ -14923,13 +14922,13 @@ tries: 3299242 , acurracy: 4.76 %
             <span class="n">possible_code</span> <span class="o">=</span> <span class="n">byte_string</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span><span class="n">ix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
             
             <span class="k">if</span> <span class="n">possible_code</span> <span class="ow">in</span> <span class="n">inv_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">search</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">byte</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
                 <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
                 <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span> <span class="o">+</span> <span class="n">size</span>
                 
                 <span class="c1"># Update Probabilistic table</span>
                 <span class="n">phc</span><span class="o">.</span><span class="n">update_prob_table</span><span class="p">(</span><span class="n">ix_code</span><span class="p">)</span>
+                <span class="k">break</span>
     
     <span class="c1"># Elapsed time</span>
     <span class="n">elapsed</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
@@ -15004,8 +15003,8 @@ tries: 3299242 , acurracy: 4.76 %
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>elapsed time 103.1998614 s
-tries: 26394565 , acurracy: 0.6 %
+<pre>elapsed time 92.20188160000001 s
+tries: 26330050 , acurracy: 0.6 %
 </pre>
 </div>
 </div>
