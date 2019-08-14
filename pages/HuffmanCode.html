@@ -14711,7 +14711,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
-elapsed time 1.7049565 s
+elapsed time 1.4594492 s
 tries: 3299242 , acurracy: 4.76 %
 </pre>
 </div>
@@ -14836,9 +14836,10 @@ tries: 3299242 , acurracy: 4.76 %
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prob_table</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_rows</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_ix</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     
     <span class="c1"># Returns the probabilistic codes table</span>
-    <span class="k">def</span> <span class="nf">get_prob_table</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">get_prob_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_table</span>
     
     <span class="c1"># Function that creates the table with the the probability of use of codes in the decompression process</span>
@@ -14858,11 +14859,16 @@ tries: 3299242 , acurracy: 4.76 %
     <span class="c1"># Function that returns the size and index of the selected code</span>
     <span class="k">def</span> <span class="nf">get_prob_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">prn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rows</span><span class="p">):</span>
-            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_table</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">prn</span> <span class="o">&lt;=</span> <span class="n">item</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
-                <span class="k">return</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ix</span>
+        
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rows</span><span class="p">):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_table</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">prn</span> <span class="o">&lt;=</span> <span class="n">item</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">ix</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_ix</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_ix</span> <span class="o">=</span> <span class="n">ix</span>
+                    <span class="k">return</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ix</span>
+            <span class="n">prn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     
     <span class="c1"># Function that updates the probability of use of codes</span>
     <span class="k">def</span> <span class="nf">update_prob_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ix_code</span><span class="p">):</span>
@@ -14919,9 +14925,6 @@ tries: 3299242 , acurracy: 4.76 %
                 <span class="n">byte</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
                 <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
                 <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span> <span class="o">+</span> <span class="n">size</span>
-                
-                <span class="c1"># Update Probabilistic table</span>
-                <span class="n">phc</span><span class="o">.</span><span class="n">update_prob_table</span><span class="p">(</span><span class="n">ix_code</span><span class="p">)</span>
                 <span class="k">break</span>
             
             <span class="c1"># Get code based on probability</span>
@@ -15000,8 +15003,8 @@ tries: 3299242 , acurracy: 4.76 %
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>elapsed time 69.3690978 s
-tries: 24511886 , acurracy: 0.64 %
+<pre>elapsed time 51.891811000000004 s
+tries: 14114394 , acurracy: 1.11 %
 </pre>
 </div>
 </div>
