@@ -13465,7 +13465,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
     
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">terms_count</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="n">term_freq</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     
     <span class="k">return</span> <span class="n">term_freq</span><span class="p">;</span>
@@ -13567,10 +13567,29 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Showing data</span>
-<span class="n">codes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">term_freq</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">codes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">codes</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;binary&quot;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Creates a huffman dataframe with the codes and frequency of each of them</span>
+<span class="k">def</span> <span class="nf">create_huffman_df</span><span class="p">(</span><span class="n">code_list</span><span class="p">,</span> <span class="n">term_freq</span><span class="p">):</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">code_list</span><span class="p">,</span> <span class="n">term_freq</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;byte&quot;</span><span class="p">,</span> <span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;frequency&quot;</span><span class="p">]</span>
+    <span class="n">codes</span><span class="p">[</span><span class="s1">&#39;symbol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">[</span><span class="s2">&quot;byte&quot;</span><span class="p">]]</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">codes</span><span class="p">[[</span><span class="s2">&quot;byte&quot;</span><span class="p">,</span> <span class="s2">&quot;symbol&quot;</span><span class="p">,</span> <span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;frequency&quot;</span><span class="p">]]</span>
+    
+    <span class="k">return</span> <span class="n">codes</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create and showing data</span>
+<span class="n">codes</span> <span class="o">=</span> <span class="n">create_huffman_df</span><span class="p">(</span><span class="n">hf_code</span><span class="p">,</span> <span class="n">term_freq</span><span class="p">)</span>
 <span class="n">codes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 
@@ -13584,7 +13603,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[13]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -13607,131 +13626,152 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>byte</th>
+      <th>symbol</th>
       <th>code</th>
       <th>frequency</th>
-      <th>binary</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>0</td>
       <td> </td>
-      <td>0.0284127</td>
       <td>01110</td>
+      <td>0.0284127</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>1</td>
       <td></td>
-      <td>0.0197444</td>
       <td>110011</td>
+      <td>0.0197444</td>
     </tr>
     <tr>
       <th>2</th>
-      <td></td>
-      <td>0.0157867</td>
-      <td>100100</td>
+      <td>10</td>
+      <td>\n</td>
+      <td>0110101</td>
+      <td>0.00697332</td>
     </tr>
     <tr>
       <th>3</th>
-      <td></td>
-      <td>0.0114189</td>
-      <td>000100</td>
+      <td>100</td>
+      <td>d</td>
+      <td>01000010</td>
+      <td>0.00314809</td>
     </tr>
     <tr>
       <th>4</th>
-      <td></td>
-      <td>0.0123</td>
-      <td>001110</td>
+      <td>101</td>
+      <td>e</td>
+      <td>110101111</td>
+      <td>0.0025088</td>
     </tr>
     <tr>
       <th>5</th>
-      <td></td>
-      <td>0.00859678</td>
-      <td>1010010</td>
+      <td>102</td>
+      <td>f</td>
+      <td>00101111</td>
+      <td>0.00298616</td>
     </tr>
     <tr>
       <th>6</th>
-      <td></td>
-      <td>0.00885964</td>
-      <td>1010111</td>
+      <td>103</td>
+      <td>g</td>
+      <td>00011000</td>
+      <td>0.0028726</td>
     </tr>
     <tr>
       <th>7</th>
-      <td></td>
-      <td>0.00677985</td>
-      <td>0101111</td>
+      <td>104</td>
+      <td>h</td>
+      <td>10000101</td>
+      <td>0.00378738</td>
     </tr>
     <tr>
       <th>8</th>
-      <td></td>
-      <td>0.010216</td>
-      <td>1110001</td>
+      <td>105</td>
+      <td>i</td>
+      <td>110010111</td>
+      <td>0.00247305</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>\t</td>
-      <td>0.00663264</td>
-      <td>0101011</td>
+      <td>106</td>
+      <td>j</td>
+      <td>101101001</td>
+      <td>0.00226065</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>\n</td>
-      <td>0.00697332</td>
-      <td>0110101</td>
+      <td>107</td>
+      <td>k</td>
+      <td>111000010</td>
+      <td>0.00255716</td>
     </tr>
     <tr>
       <th>11</th>
-      <td></td>
-      <td>0.00477786</td>
-      <td>11000010</td>
+      <td>108</td>
+      <td>l</td>
+      <td>00110110</td>
+      <td>0.00307028</td>
     </tr>
     <tr>
       <th>12</th>
-      <td></td>
-      <td>0.00752008</td>
-      <td>1000001</td>
+      <td>109</td>
+      <td>m</td>
+      <td>111010011</td>
+      <td>0.00260974</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>\r</td>
-      <td>0.00512063</td>
-      <td>11100100</td>
+      <td>11</td>
+      <td></td>
+      <td>11000010</td>
+      <td>0.00477786</td>
     </tr>
     <tr>
       <th>14</th>
-      <td></td>
-      <td>0.00532041</td>
-      <td>11110001</td>
+      <td>110</td>
+      <td>n</td>
+      <td>00101001</td>
+      <td>0.00295672</td>
     </tr>
     <tr>
       <th>15</th>
-      <td></td>
-      <td>0.00465168</td>
-      <td>10111100</td>
+      <td>111</td>
+      <td>o</td>
+      <td>00111110</td>
+      <td>0.00311865</td>
     </tr>
     <tr>
       <th>16</th>
-      <td></td>
-      <td>0.00906783</td>
-      <td>1011011</td>
+      <td>112</td>
+      <td>p</td>
+      <td>0110011</td>
+      <td>0.00692705</td>
     </tr>
     <tr>
       <th>17</th>
-      <td></td>
-      <td>0.00536037</td>
-      <td>11110011</td>
+      <td>113</td>
+      <td>q</td>
+      <td>00101010</td>
+      <td>0.00296303</td>
     </tr>
     <tr>
       <th>18</th>
-      <td></td>
-      <td>0.00490824</td>
-      <td>11001001</td>
+      <td>114</td>
+      <td>r</td>
+      <td>110000000</td>
+      <td>0.00237421</td>
     </tr>
     <tr>
       <th>19</th>
-      <td></td>
-      <td>0.00446242</td>
-      <td>10110010</td>
+      <td>115</td>
+      <td>s</td>
+      <td>111110101</td>
+      <td>0.00275694</td>
     </tr>
   </tbody>
 </table>
@@ -13746,7 +13786,21 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save full huffman codes as CSV file</span>
+<span class="n">codes</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../huffman_codes/sample1.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate message average size</span>
@@ -13764,7 +13818,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Current message average size (bits per symbol)</span>
@@ -13781,7 +13835,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt output_prompt">Out[17]:</div>
 
 
 
@@ -13798,7 +13852,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message average size (bits per symbol)</span>
@@ -13815,7 +13869,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -13839,7 +13893,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
@@ -13880,7 +13934,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compress a binary file using a huffman code</span>
@@ -13890,7 +13944,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
     <span class="n">symbols_used</span> <span class="o">=</span> <span class="p">{}</span>
     
     <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">byte_list</span><span class="p">:</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="n">new_symbol</span> <span class="o">=</span> <span class="n">code_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="n">compress_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_symbol</span><span class="p">)</span>
         
@@ -13918,7 +13972,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing PNG image with Huffman code</span>
@@ -13951,7 +14005,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed PNG image (KB)</span>
@@ -13983,7 +14037,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original PNG image (KB)</span>
@@ -14015,7 +14069,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show frequency of length of used symbols</span>
@@ -14032,7 +14086,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[22]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
@@ -14064,7 +14118,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading target image</span>
@@ -14079,7 +14133,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alphabet with 256 symbols</span>
@@ -14097,7 +14151,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[24]:</div>
+    <div class="prompt output_prompt">Out[26]:</div>
 
 
 
@@ -14114,7 +14168,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Normalize term frequency</span>
@@ -14134,7 +14188,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[25]:</div>
+    <div class="prompt output_prompt">Out[27]:</div>
 
 
 
@@ -14151,7 +14205,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get Huffman coding</span>
@@ -14165,13 +14219,11 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Showing data</span>
-<span class="n">codes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">term_freq</span><span class="p">,</span> <span class="n">hf_code</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">codes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">codes</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;binary&quot;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create and showing data</span>
+<span class="n">codes</span> <span class="o">=</span> <span class="n">create_huffman_df</span><span class="p">(</span><span class="n">hf_code</span><span class="p">,</span> <span class="n">term_freq</span><span class="p">)</span>
 <span class="n">codes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 
@@ -14185,7 +14237,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[29]:</div>
 
 
 
@@ -14208,131 +14260,152 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>byte</th>
+      <th>symbol</th>
       <th>code</th>
       <th>frequency</th>
-      <th>binary</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>10</td>
       <td>\n</td>
-      <td>0.0174728</td>
       <td>101111</td>
+      <td>0.0174728</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>\r</td>
-      <td>0.0174728</td>
-      <td>101110</td>
+      <td>100</td>
+      <td>d</td>
+      <td>01111</td>
+      <td>0.0300135</td>
     </tr>
     <tr>
       <th>2</th>
-      <td></td>
-      <td>0.155075</td>
-      <td>110</td>
+      <td>101</td>
+      <td>e</td>
+      <td>1111</td>
+      <td>0.0929537</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>!</td>
-      <td>0.00140562</td>
-      <td>000010010</td>
+      <td>102</td>
+      <td>f</td>
+      <td>100100</td>
+      <td>0.0160457</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>#</td>
-      <td>7.95482e-07</td>
-      <td>11100010100100000110</td>
+      <td>103</td>
+      <td>g</td>
+      <td>100101</td>
+      <td>0.0162087</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>$</td>
-      <td>1.59096e-06</td>
-      <td>1110001010010000000</td>
+      <td>104</td>
+      <td>h</td>
+      <td>0001</td>
+      <td>0.0493223</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>&amp;</td>
-      <td>1.59096e-06</td>
-      <td>1110001010010000001</td>
+      <td>105</td>
+      <td>i</td>
+      <td>0010</td>
+      <td>0.0496922</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>(</td>
-      <td>0.000171824</td>
-      <td>000010011010</td>
+      <td>106</td>
+      <td>j</td>
+      <td>0000100001</td>
+      <td>0.000665819</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>)</td>
-      <td>0.000171824</td>
-      <td>000010011011</td>
+      <td>107</td>
+      <td>k</td>
+      <td>0100001</td>
+      <td>0.00634397</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>*</td>
-      <td>6.44341e-05</td>
-      <td>11100000100111</td>
+      <td>108</td>
+      <td>l</td>
+      <td>10011</td>
+      <td>0.0336131</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>,</td>
-      <td>0.0153067</td>
-      <td>011101</td>
+      <td>109</td>
+      <td>m</td>
+      <td>111001</td>
+      <td>0.0180574</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>-</td>
-      <td>0.00204996</td>
-      <td>111000010</td>
+      <td>110</td>
+      <td>n</td>
+      <td>0101</td>
+      <td>0.0517024</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>.</td>
-      <td>0.00634397</td>
-      <td>0100010</td>
+      <td>111</td>
+      <td>o</td>
+      <td>0110</td>
+      <td>0.0548374</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>0</td>
-      <td>0.000125686</td>
-      <td>1110000010010</td>
+      <td>112</td>
+      <td>p</td>
+      <td>010010</td>
+      <td>0.0129926</td>
     </tr>
     <tr>
       <th>14</th>
-      <td>1</td>
-      <td>0.000168642</td>
-      <td>000010011001</td>
+      <td>113</td>
+      <td>q</td>
+      <td>1110000001</td>
+      <td>0.000991966</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>2</td>
-      <td>7.79573e-05</td>
-      <td>0000100110000</td>
+      <td>114</td>
+      <td>r</td>
+      <td>11101</td>
+      <td>0.0412147</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>3</td>
-      <td>6.20476e-05</td>
-      <td>11100000100011</td>
+      <td>115</td>
+      <td>s</td>
+      <td>0011</td>
+      <td>0.0497518</td>
     </tr>
     <tr>
       <th>17</th>
-      <td>4</td>
-      <td>5.01154e-05</td>
-      <td>00001001111001</td>
+      <td>116</td>
+      <td>t</td>
+      <td>1010</td>
+      <td>0.0685228</td>
     </tr>
     <tr>
       <th>18</th>
-      <td>5</td>
-      <td>6.28431e-05</td>
-      <td>11100000100110</td>
+      <td>117</td>
+      <td>u</td>
+      <td>00000</td>
+      <td>0.0211582</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>6</td>
-      <td>4.77289e-05</td>
-      <td>00001001110111</td>
+      <td>118</td>
+      <td>v</td>
+      <td>0111000</td>
+      <td>0.00675603</td>
     </tr>
   </tbody>
 </table>
@@ -14347,7 +14420,21 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save full huffman codes as CSV file</span>
+<span class="n">codes</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../huffman_codes/sample2.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate weighted message size average</span>
@@ -14365,7 +14452,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Current message size average (bits per symbol)</span>
@@ -14382,7 +14469,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[29]:</div>
+    <div class="prompt output_prompt">Out[32]:</div>
 
 
 
@@ -14399,7 +14486,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weighted message size average (bits per symbol)</span>
@@ -14416,7 +14503,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt output_prompt">Out[33]:</div>
 
 
 
@@ -14440,7 +14527,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating compression ratio (%)</span>
@@ -14473,7 +14560,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressing text file with Huffman code</span>
@@ -14506,7 +14593,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed text file (KB)</span>
@@ -14538,7 +14625,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -14570,7 +14657,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show frequency of length of used symbols</span>
@@ -14587,7 +14674,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[35]:</div>
+    <div class="prompt output_prompt">Out[38]:</div>
 
 
 
@@ -14635,7 +14722,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decompress a binary file using a huffman code</span>
@@ -14662,7 +14749,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
             <span class="n">possible_code</span> <span class="o">=</span> <span class="n">byte_string</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span><span class="n">ix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
             
             <span class="k">if</span> <span class="n">possible_code</span> <span class="ow">in</span> <span class="n">inv_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">byte</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
+                <span class="n">byte</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
                 <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
                 <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span> <span class="o">+</span> <span class="n">size</span>
                 <span class="k">break</span>
@@ -14688,7 +14775,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decode/Decompress file using the Huffman code</span>
@@ -14711,7 +14798,7 @@ $$ L(C) &lt; L(T)\;for\;any\;code\;T(A, W) $$
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
-elapsed time 1.4594492 s
+elapsed time 2.0693808000000002 s
 tries: 3299242 , acurracy: 4.76 %
 </pre>
 </div>
@@ -14723,7 +14810,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -14762,7 +14849,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compare if two files are equals for equality and element-wise</span>
@@ -14777,7 +14864,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Comparing files</span>
@@ -14794,7 +14881,7 @@ tries: 3299242 , acurracy: 4.76 %
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[40]:</div>
+    <div class="prompt output_prompt">Out[43]:</div>
 
 
 
@@ -14826,7 +14913,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Class Probabilistic Huffman Code from scratch</span>
@@ -14895,7 +14982,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decompress a binary file using a huffman code</span>
@@ -14922,7 +15009,7 @@ tries: 3299242 , acurracy: 4.76 %
             <span class="n">possible_code</span> <span class="o">=</span> <span class="n">byte_string</span><span class="p">[</span><span class="n">ix</span><span class="p">:</span><span class="n">ix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span>
             
             <span class="k">if</span> <span class="n">possible_code</span> <span class="ow">in</span> <span class="n">inv_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">byte</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
+                <span class="n">byte</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">inv_codes</span><span class="p">[</span><span class="n">possible_code</span><span class="p">])</span>
                 <span class="n">byte_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
                 <span class="n">ix</span> <span class="o">=</span> <span class="n">ix</span> <span class="o">+</span> <span class="n">size</span>
                 <span class="k">break</span>
@@ -14950,7 +15037,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Context</span>
@@ -14982,7 +15069,7 @@ tries: 3299242 , acurracy: 4.76 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decode/Decompress file using the Huffman code</span>
@@ -15003,8 +15090,8 @@ tries: 3299242 , acurracy: 4.76 %
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>elapsed time 51.891811000000004 s
-tries: 14114394 , acurracy: 1.11 %
+<pre>elapsed time 55.0387906 s
+tries: 14538311 , acurracy: 1.08 %
 </pre>
 </div>
 </div>
@@ -15015,7 +15102,7 @@ tries: 14114394 , acurracy: 1.11 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original text file (KB)</span>
@@ -15054,7 +15141,7 @@ tries: 14114394 , acurracy: 1.11 %
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Comparing files</span>
@@ -15071,7 +15158,7 @@ tries: 14114394 , acurracy: 1.11 %
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[46]:</div>
+    <div class="prompt output_prompt">Out[49]:</div>
 
 
 
