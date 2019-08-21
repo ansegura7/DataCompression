@@ -13141,6 +13141,7 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">locale</span>
 </pre></div>
 
     </div>
@@ -13177,6 +13178,40 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get current encoding</span>
+<span class="n">locale</span><span class="o">.</span><span class="n">getdefaultlocale</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&#39;en_US&#39;, &#39;cp1252&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Util function to read a plain text file</span>
 <span class="k">def</span> <span class="nf">read_text_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
     <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -13192,7 +13227,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading target text book</span>
@@ -13207,7 +13242,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the original file</span>
@@ -13247,7 +13282,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Cleaing the text</span>
@@ -13261,7 +13296,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tokenize text in words</span>
@@ -13279,7 +13314,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[8]:</div>
 
 
 
@@ -13296,7 +13331,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Showing first 100 words</span>
@@ -13328,7 +13363,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Count the words in a document and return the most N repeated</span>
@@ -13348,7 +13383,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the most common words in the document</span>
@@ -13369,7 +13404,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[10]:</div>
+    <div class="prompt output_prompt">Out[11]:</div>
 
 
 
@@ -13471,7 +13506,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot the most common words in the document</span>
@@ -13521,7 +13556,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read file in low level (Bytes)</span>
@@ -13538,7 +13573,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loading target text book</span>
@@ -13552,7 +13587,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate code frequency</span>
@@ -13586,7 +13621,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Normalize term frequency</span>
@@ -13607,7 +13642,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create dataframe: unused byte list</span>
@@ -13625,7 +13660,7 @@ height=386
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[17]:</div>
 
 
 
@@ -13716,7 +13751,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create pretty x axis labels</span>
@@ -13737,7 +13772,7 @@ height=386
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Probability of each symbol by default</span>
@@ -13783,7 +13818,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">unused_symbols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_ubytes</span><span class="p">[</span><span class="n">df_ubytes</span><span class="p">[</span><span class="s1">&#39;Frequency&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Byte&quot;</span><span class="p">])</span>
@@ -13800,7 +13835,7 @@ height=397
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
@@ -13825,21 +13860,22 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Symbols replaced</span>
 <span class="n">symb_repleced</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">n_symb_repleced</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unused_symbols</span><span class="p">))</span>
+<span class="n">n_symb_repleced</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unused_symbols</span><span class="p">))</span>
 <span class="n">ix</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_words</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">ix</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">ix</span> <span class="o">&lt;=</span> <span class="n">n_symb_repleced</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ix</span> <span class="o">&lt;</span> <span class="n">n_symb_repleced</span><span class="p">:</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">]</span>
         <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unused_symbols</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
         <span class="n">symb_repleced</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">ix</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">symb_repleced</span><span class="p">)</span>
 </pre></div>
 
@@ -13857,7 +13893,7 @@ height=397
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;the&#39;: 1, &#39;and&#39;: 2, &#39;of&#39;: 3, &#39;that&#39;: 4, &#39;to&#39;: 5, &#39;in&#39;: 6, &#39;his&#39;: 7, &#39;with&#39;: 8, &#39;was&#39;: 9, &#39;this&#39;: 11, &#39;a&#39;: 12, &#39;from&#39;: 14, &#39;for&#39;: 15, &#39;all&#39;: 16, &#39;as&#39;: 17, &#39;is&#39;: 18, &#39;but&#39;: 19, &#39;not&#39;: 20, &#39;their&#39;: 21, &#39;it&#39;: 22, &#39;have&#39;: 23, &#39;he&#39;: 24, &#39;which&#39;: 25, &#39;were&#39;: 26, &#39;at&#39;: 27, &#39;some&#39;: 28, &#39;they&#39;: 29, &#39;one&#39;: 30, &#39;had&#39;: 31, &#39;by&#39;: 34, &#39;you&#39;: 37, &#39;like&#39;: 39, &#39;upon&#39;: 43, &#39;there&#39;: 47, &#39;into&#39;: 60, &#39;would&#39;: 61, &#39;when&#39;: 62, &#39;CHAPTER&#39;: 64, &#39;whale&#39;: 92, &#39;be&#39;: 94, &#39;But&#39;: 96, &#39;The&#39;: 123, &#39;on&#39;: 124, &#39;these&#39;: 125, &#39;I&#39;: 126, &#39;other&#39;: 127, &#39;more&#39;: 129, &#39;are&#39;: 131, &#39;him&#39;: 133, &#39;seemed&#39;: 134, &#39;though&#39;: 135, &#39;been&#39;: 136, &#39;so&#39;: 137, &#39;before&#39;: 138, &#39;what&#39;: 139, &#39;those&#39;: 140, &#39;through&#39;: 141, &#39;over&#39;: 142, &#39;great&#39;: 143, &#39;little&#39;: 144, &#39;or&#39;: 145, &#39;only&#39;: 150, &#39;still&#39;: 154, &#39;now&#39;: 155, &#39;about&#39;: 158, &#39;will&#39;: 159, &#39;then&#39;: 160, &#39;out&#39;: 161, &#39;such&#39;: 164, &#39;old&#39;: 165, &#39;than&#39;: 167, &#39;very&#39;: 170, &#39;down&#39;: 171, &#39;after&#39;: 172, &#39;an&#39;: 173, &#39;Captain&#39;: 174, &#39;three&#39;: 175, &#39;my&#39;: 177, &#39;its&#39;: 178, &#39;them&#39;: 179, &#39;most&#39;: 180, &#39;every&#39;: 181, &#39;almost&#39;: 182, &#39;should&#39;: 184, &#39;must&#39;: 185, &#39;round&#39;: 186, &#39;could&#39;: 188, &#39;whale,&#39;: 189, &#39;being&#39;: 190, &#39;without&#39;: 192, &#39;long&#39;: 193, &#39;said&#39;: 196, &#39;first&#39;: 198, &#39;while&#39;: 199, &#39;And&#39;: 200, &#39;something&#39;: 201, &#39;your&#39;: 202, &#39;himself&#39;: 203, &#39;never&#39;: 204, &#39;Ahab&#39;: 205}
+<pre>{&#39;the&#39;: 0, &#39;and&#39;: 1, &#39;of&#39;: 2, &#39;that&#39;: 3, &#39;to&#39;: 4, &#39;in&#39;: 5, &#39;his&#39;: 6, &#39;with&#39;: 7, &#39;was&#39;: 8, &#39;this&#39;: 9, &#39;a&#39;: 11, &#39;from&#39;: 12, &#39;for&#39;: 14, &#39;all&#39;: 15, &#39;as&#39;: 16, &#39;is&#39;: 17, &#39;but&#39;: 18, &#39;not&#39;: 19, &#39;their&#39;: 20, &#39;it&#39;: 21, &#39;have&#39;: 22, &#39;he&#39;: 23, &#39;which&#39;: 24, &#39;were&#39;: 25, &#39;at&#39;: 26, &#39;some&#39;: 27, &#39;they&#39;: 28, &#39;one&#39;: 29, &#39;had&#39;: 30, &#39;by&#39;: 31, &#39;you&#39;: 34, &#39;like&#39;: 37, &#39;upon&#39;: 39, &#39;there&#39;: 43, &#39;into&#39;: 47, &#39;would&#39;: 60, &#39;when&#39;: 61, &#39;CHAPTER&#39;: 62, &#39;whale&#39;: 64, &#39;be&#39;: 92, &#39;But&#39;: 94, &#39;The&#39;: 96, &#39;on&#39;: 123, &#39;these&#39;: 124, &#39;I&#39;: 125, &#39;other&#39;: 126, &#39;more&#39;: 127, &#39;are&#39;: 129, &#39;him&#39;: 131, &#39;seemed&#39;: 133, &#39;though&#39;: 134, &#39;been&#39;: 135, &#39;so&#39;: 136, &#39;before&#39;: 137, &#39;what&#39;: 138, &#39;those&#39;: 139, &#39;through&#39;: 140, &#39;over&#39;: 141, &#39;great&#39;: 142, &#39;little&#39;: 143, &#39;or&#39;: 144, &#39;only&#39;: 145, &#39;still&#39;: 150, &#39;now&#39;: 154, &#39;about&#39;: 155, &#39;will&#39;: 158, &#39;then&#39;: 159, &#39;out&#39;: 160, &#39;such&#39;: 161, &#39;old&#39;: 164, &#39;than&#39;: 165, &#39;very&#39;: 167, &#39;down&#39;: 170, &#39;after&#39;: 171, &#39;an&#39;: 172, &#39;Captain&#39;: 173, &#39;three&#39;: 174, &#39;my&#39;: 175, &#39;its&#39;: 177, &#39;them&#39;: 178, &#39;most&#39;: 179, &#39;every&#39;: 180, &#39;almost&#39;: 181, &#39;should&#39;: 182, &#39;must&#39;: 184, &#39;round&#39;: 185, &#39;could&#39;: 186, &#39;whale,&#39;: 188, &#39;being&#39;: 189, &#39;without&#39;: 190, &#39;long&#39;: 192, &#39;said&#39;: 193, &#39;first&#39;: 196, &#39;while&#39;: 198, &#39;And&#39;: 199, &#39;something&#39;: 200, &#39;your&#39;: 201, &#39;himself&#39;: 202, &#39;never&#39;: 203, &#39;Ahab&#39;: 204, &#39;him,&#39;: 205, &#39;any&#39;: 208, &#39;against&#39;: 209, &#39;ship&#39;: 210, &#39;thought&#39;: 211, &#39;no&#39;: 212, &#39;might&#39;: 213, &#39;Queequeg&#39;: 214, &#39;then,&#39;: 216, &#39;where&#39;: 217, &#39;has&#39;: 218, &#39;thou&#39;: 219, &#39;last&#39;: 220, &#39;up&#39;: 221, &#39;her&#39;: 222, &#39;whales&#39;: 223, &#39;much&#39;: 224, &#39;same&#39;: 225, &#39;among&#39;: 227, &#39;if&#39;: 228, &#39;two&#39;: 229, &#39;we&#39;: 230, &#39;time&#39;: 231, &#39;between&#39;: 232, &#39;who&#39;: 233, &#39;white&#39;: 234, &#39;towards&#39;: 235, &#39;yet&#39;: 236, &#39;man&#39;: 237, &#39;it,&#39;: 238, &#39;ever&#39;: 240, &#39;cried&#39;: 241, &#39;Whale&#39;: 242, &#39;whaleâ\x80\x99s&#39;: 243, &#39;sometimes&#39;: 244, &#39;me&#39;: 245, &#39;even&#39;: 246, &#39;did&#39;: 247, &#39;thing&#39;: 248, &#39;Sperm&#39;: 249, &#39;good&#39;: 250, &#39;donâ\x80\x99t&#39;: 251, &#39;whole&#39;: 252, &#39;there,&#39;: 253, &#39;many&#39;: 254, &#39;may&#39;: 255}
 </pre>
 </div>
 </div>
@@ -13875,7 +13911,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">file_comp_text</span> <span class="o">=</span> <span class="n">file_text</span>
@@ -13891,7 +13927,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">file_path_comp</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;_comp.txt&#39;</span><span class="p">)</span>
@@ -13906,7 +13942,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Weight of the compressed file</span>
@@ -13928,7 +13964,7 @@ height=397
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1012.34 KB
+<pre>988.64 KB
 </pre>
 </div>
 </div>
@@ -13939,7 +13975,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Original file</span>
@@ -13971,7 +14007,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compressed file</span>
@@ -13992,7 +14028,7 @@ height=397
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Number of characters: 1014671
+<pre>Number of characters: 990399
 </pre>
 </div>
 </div>
@@ -14003,7 +14039,7 @@ height=397
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Semantic compression percentage</span>
@@ -14025,7 +14061,7 @@ height=397
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>17.85 %
+<pre>19.81 %
 </pre>
 </div>
 </div>
@@ -14033,6 +14069,21 @@ height=397
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Compressed-Text-File">Compressed Text File<a class="anchor-link" href="#Compressed-Text-File">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://raw.githubusercontent.com/ansegura7/DataCompression/master/data/text/book1-en_comp.txt">https://raw.githubusercontent.com/ansegura7/DataCompression/master/data/text/book1-en_comp.txt</a></p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">

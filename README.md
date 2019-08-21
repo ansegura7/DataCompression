@@ -10,7 +10,14 @@ Project in which we explore different algorithms and compression approaches such
 </ul>
 </details>
 <details>
-<summary>2. <a href="https://ansegura7.github.io/DataCompression/pages/HuffmanCode.html" >File Compression</a></summary>
+<summary>2. <a href="https://ansegura7.github.io/DataCompression/pages/TextCompression.html" >Text Compression</a></summary>
+<ul>
+	<li>NPL Preprocessing Approach</li>
+    <li>Semantic Compression</li>
+</ul>
+</details>
+<details>
+<summary>3. <a href="https://ansegura7.github.io/DataCompression/pages/HuffmanCode.html" >File Compression</a></summary>
 <ul>
 	<li>Huffman Code from Scratch</li>
 	<li>Compress Image with Huffman Code</li>
@@ -19,7 +26,7 @@ Project in which we explore different algorithms and compression approaches such
 </ul>
 </details>
 <details>
-<summary>3. <a href="https://ansegura7.github.io/DataCompression/pages/CompressionAndEntropy.html" >Compression & Entropy</a></summary>
+<summary>4. <a href="https://ansegura7.github.io/DataCompression/pages/CompressionAndEntropy.html" >Compression & Entropy</a></summary>
 <ul>
 	<li>Compression with current Entropy</li>
 	<li>Changing Entropy for higher Compression</li>
