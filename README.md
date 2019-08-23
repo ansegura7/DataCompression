@@ -14,6 +14,7 @@ Project in which we explore different algorithms and compression approaches such
 <ul>
 	<li>NPL Preprocessing Approach</li>
     <li>Semantic Compression</li>
+    <li>Decompression and Validation</li>
 </ul>
 </details>
 <details>
