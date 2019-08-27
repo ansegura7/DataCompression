@@ -12,8 +12,8 @@ Project in which we explore different algorithms and compression approaches such
 <details>
 <summary>2. <a href="https://ansegura7.github.io/DataCompression/pages/TextCompression.html" >Text Compression</a></summary>
 <ul>
-	<li>NPL Preprocessing Approach</li>
     <li>Semantic Compression</li>
+    <li>NLP Preprocessing Approach</li>
     <li>Decompression and Validation</li>
 </ul>
 </details>
