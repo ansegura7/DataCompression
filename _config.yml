@@ -1,2 +1,5 @@
 title: Data Compression Algorithms
+description: Project in which different algorithms and approaches of compression and decompression of data are explored
+show_downloads: false
+google_analytics:
 theme: jekyll-theme-cayman
