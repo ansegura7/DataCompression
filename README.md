@@ -52,6 +52,9 @@ PNG images and plain textbook of different sizes and different languages (Englis
     import matplotlib.pyplot as plt
 ```
 
+## Acknowledgment
+To <a href="https://github.com/Wittline" target="_blank">Ramses Coraspe</a> for his good ideas and the validation of the compression / decompression processes used in this project.
+
 ## Contributing and Feedback
 Any kind of feedback/criticism would be greatly appreciated (algorithm design, documentation, improvement ideas, spelling mistakes, etc...).
 
