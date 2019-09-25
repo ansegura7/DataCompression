@@ -39,7 +39,7 @@ Project in which we explore different algorithms and compression approaches such
 PNG images and plain textbook of different sizes and different languages (English and Spanish).
 
 ## Python Dependencies
-```
+``` console
     import io
     import math
     import timeit
