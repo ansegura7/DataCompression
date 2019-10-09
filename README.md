@@ -23,7 +23,13 @@ Project in which we explore different algorithms and compression approaches such
 	<li>Huffman Code from Scratch</li>
 	<li>Compress Image with Huffman Code</li>
 	<li>Compress Text file with Huffman Code</li>
-	<li>Decompress file with Huffman Code</li>
+	<li>Decompress file with Huffman Code
+        <ul>
+            <li>Simple approach</li>
+            <li>Probabilistic approach</li>
+            <li>Pseudo-random approach</li>
+        </ul>
+    </li>
 </ul>
 </details>
 <details>
