@@ -9,7 +9,7 @@ Project in which we explore different algorithms and compression approaches such
 	<li>Entropy</li>
 </ul>
 </details>
-<details>
+<details open>
 <summary>2. <a href="https://ansegura7.github.io/DataCompression/pages/TextCompression.html" >Text Compression</a></summary>
 <ul>
     <li>Semantic Compression</li>
@@ -17,7 +17,7 @@ Project in which we explore different algorithms and compression approaches such
     <li>Decompression and Validation</li>
 </ul>
 </details>
-<details>
+<details open>
 <summary>3. <a href="https://ansegura7.github.io/DataCompression/pages/HuffmanCode.html" >File Compression</a></summary>
 <ul>
 	<li>Huffman Code from Scratch</li>
@@ -32,7 +32,7 @@ Project in which we explore different algorithms and compression approaches such
     </li>
 </ul>
 </details>
-<details>
+<details open>
 <summary>4. <a href="https://ansegura7.github.io/DataCompression/pages/CompressionAndEntropy.html" >Compression & Entropy</a></summary>
 <ul>
 	<li>Compression with current Entropy</li>
